@@ -38,3 +38,6 @@ Then from a terminal:
 
 ``nvm use 16.20``
 
+This is an issue with Phaser that even affects the official template, reported last December:
+
+[Unable to build project on Node version 18 and above](https://github.com/photonstorm/phaser3-project-template/issues/100)
