@@ -1,4 +1,5 @@
 import 'phaser';
+import DeathTimer from '../Objects/DeathTimer';
 
 export default class GameScene extends Phaser.Scene {
     constructor () {
@@ -11,6 +12,7 @@ export default class GameScene extends Phaser.Scene {
         //  A simple background for our game
         this.add.image(400, 300, 'background');
 
+        this.DeathTimer = new DeathTimer(this, 200, 300, 'Hourglass');
     }
 
     update ()
