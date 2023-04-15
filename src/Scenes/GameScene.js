@@ -12,11 +12,11 @@ export default class GameScene extends Phaser.Scene {
         //  A simple background for our game
         this.add.image(400, 300, 'background');
 
-        this.DeathTimer = new DeathTimer(this, 200, 300, 'Hourglass');
+        this.DeathTimer = new DeathTimer(this, 200, 300, 'Hourglass', 5);
     }
 
     update ()
     {
-
+        console.log(Math.floor(this.DeathTimer.currentTimer.getElapsedSeconds()));
     }
 };
