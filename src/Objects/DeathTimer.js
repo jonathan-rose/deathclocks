@@ -9,7 +9,8 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
         this.texture = texture;
         this.tweens = this.scene.tweens;
         this.time = this.scene.time;
-        this.currentTimer = new Phaser.Time.TimerEvent;
+        this.currentTimer = new Phaser.Time.TimerEvent();
+        console.log(this.currentTimer);
         this.isRotating = false;
         this.duration = duration * 1000
        
@@ -48,7 +49,22 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
     }
 
     resetTimer () {
-        // Resetting a timer is weird
+        // Resetting with .reset() doesn't actually reset it
+        // If the existing timer completes then it deactivates
+        // And doesn't continue running, even when reset
+        // This is why I instead create a new timer
+        // Also the in-built getRemaining method seems to be missing?
+        let timeElapsed = this.currentTimer.getElapsed();
+        let timeRemaining = this.currentTimer.delay - timeElapsed;
+
+        this.currentTimer.remove();
+        this.currentTimer.elapsed = 0;
+        this.currentTimer = this.time.addEvent({
+            delay: this.timerConfig.delay,
+            callback: this.timerConfig.callback,
+            startAt: timeRemaining
+        });
+        
         console.log("Timer reset");
     }
 
