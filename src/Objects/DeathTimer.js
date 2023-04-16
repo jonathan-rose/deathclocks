@@ -10,21 +10,55 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
         this.tweens = this.scene.tweens;
         this.time = this.scene.time;
         this.currentTimer = new Phaser.Time.TimerEvent();
-        console.log(this.currentTimer);
         this.isRotating = false;
         this.duration = duration * 1000
-       
+        this.topLeft = this.getTopLeft();
+        this.scene.add.existing(this);
         this.timerConfig = {
             delay: this.duration,
             callback: this.finishTimer
         }
 
+        this.sand = new Phaser.GameObjects.Rectangle(
+            this.scene,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+            0xCBA413
+            );
 
+        // CHANGE THIS SO THAT STUFF GETS ADDED TO DEATHTIMER OBJECT
+        // NOT TO SCENE
+        // SO THEY ALL ROTATE TOGETHER
+
+        // this.scene.add.existing(this.sand);
+
+        // this.sand.setOrigin(0.5, 1);
+
+        this.maskGraphics = this.scene.add.graphics();
+        this.maskGraphics.clear();
+        this.maskGraphics.fillStyle(0xFFFFFF, 0.5);
+        this.maskGraphics.fillCircle(this.topLeft.x, this.topLeft.y + this.height / 2, this.width / 2);
+
+        this.geometryMask = new Phaser.Display.Masks.GeometryMask(this.scene, this.maskGraphics);
+        this.geometryMask.invertAlpha = true;
+        this.mask = this.geometryMask;
+
+        // this.maskGraphics.fillRect(
+        //     this.topLeft.x, 
+        //     this.topLeft.y, 
+        //     this.width, 
+        //     this.height / 2
+        //     );
+
+        // this.mask = new Phaser.Display.Masks.GeometryMask(this.scene, this.maskGraphics);
+  
         this.setInteractive();
+
         this.scene.add.existing(this);
 
         this.addTimer();
-
 
         this.on('pointerdown', this.rotateTimer);
     }
@@ -32,7 +66,7 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
     rotateTimer () {
         if (this.isRotating === false) {
             this.tweens.add({
-                targets: this,
+                targets: [this, this.sand],
                 angle: '+=180',
                 onComplete: (function () { 
                     this.isRotating = false;
@@ -52,8 +86,8 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
         // Resetting with .reset() doesn't actually reset it
         // If the existing timer completes then it deactivates
         // And doesn't continue running, even when reset
-        // This is why I instead create a new timer
-        // Also the in-built getRemaining method seems to be missing?
+        // This is why I create a new timer instead
+        // Also the in-built getRemaining method seems to be missing?s
         let timeElapsed = this.currentTimer.getElapsed();
         let timeRemaining = this.currentTimer.delay - timeElapsed;
 
