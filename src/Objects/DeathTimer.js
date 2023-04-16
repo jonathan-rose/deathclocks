@@ -18,6 +18,10 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
             delay: this.duration,
             callback: this.finishTimer
         }
+        this.setDepth(1);
+
+        this.container = new Phaser.GameObjects.Container(this.scene);
+        scene.add.existing(this.container);
 
         this.sand = new Phaser.GameObjects.Rectangle(
             this.scene,
@@ -27,6 +31,12 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
             this.height,
             0xCBA413
             );
+        this.sand.setDepth(-1);
+
+        this.container.add(this.sand);
+
+        // this.container.add(this);
+
 
         // CHANGE THIS SO THAT STUFF GETS ADDED TO DEATHTIMER OBJECT
         // NOT TO SCENE
@@ -36,14 +46,14 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
 
         // this.sand.setOrigin(0.5, 1);
 
-        this.maskGraphics = this.scene.add.graphics();
-        this.maskGraphics.clear();
-        this.maskGraphics.fillStyle(0xFFFFFF, 0.5);
-        this.maskGraphics.fillCircle(this.topLeft.x, this.topLeft.y + this.height / 2, this.width / 2);
+        // this.maskGraphics = this.scene.add.graphics();
+        // this.maskGraphics.clear();
+        // this.maskGraphics.fillStyle(0xFFFFFF, 0.5);
+        // this.maskGraphics.fillCircle(this.topLeft.x, this.topLeft.y + this.height / 2, this.width / 2);
 
-        this.geometryMask = new Phaser.Display.Masks.GeometryMask(this.scene, this.maskGraphics);
-        this.geometryMask.invertAlpha = true;
-        this.mask = this.geometryMask;
+        // this.geometryMask = new Phaser.Display.Masks.GeometryMask(this.scene, this.maskGraphics);
+        // this.geometryMask.invertAlpha = true;
+        // this.mask = this.geometryMask;
 
         // this.maskGraphics.fillRect(
         //     this.topLeft.x, 
@@ -56,7 +66,7 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
   
         this.setInteractive();
 
-        this.scene.add.existing(this);
+        // this.scene.add.existing(this);
 
         this.addTimer();
 
