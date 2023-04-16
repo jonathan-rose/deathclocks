@@ -13,40 +13,23 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
         this.isRotating = false;
         this.duration = duration * 1000
         this.topLeft = this.getTopLeft();
-        this.scene.add.existing(this);
         this.timerConfig = {
             delay: this.duration,
             callback: this.finishTimer
         }
-        this.setDepth(1);
-
-        this.container = new Phaser.GameObjects.Container(this.scene);
-        scene.add.existing(this.container);
-
-        this.sand = new Phaser.GameObjects.Rectangle(
-            this.scene,
-            this.x,
-            this.y,
-            this.width,
-            this.height,
-            0xCBA413
-            );
-        this.sand.setDepth(-1);
-
-        this.container.add(this.sand);
-        this.container.add(this);
-  
         this.setInteractive();
 
         this.addTimer();
 
         this.on('pointerdown', this.rotateTimer);
+
+        this.scene.add.existing(this);
     }
 
     rotateTimer () {
         if (this.isRotating === false) {
             this.tweens.add({
-                targets: [this, this.sand],
+                targets: [this],
                 angle: '+=180',
                 onComplete: (function () { 
                     this.isRotating = false;
