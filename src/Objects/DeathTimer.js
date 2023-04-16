@@ -34,39 +34,9 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
         this.sand.setDepth(-1);
 
         this.container.add(this.sand);
-
-        // this.container.add(this);
-
-
-        // CHANGE THIS SO THAT STUFF GETS ADDED TO DEATHTIMER OBJECT
-        // NOT TO SCENE
-        // SO THEY ALL ROTATE TOGETHER
-
-        // this.scene.add.existing(this.sand);
-
-        // this.sand.setOrigin(0.5, 1);
-
-        // this.maskGraphics = this.scene.add.graphics();
-        // this.maskGraphics.clear();
-        // this.maskGraphics.fillStyle(0xFFFFFF, 0.5);
-        // this.maskGraphics.fillCircle(this.topLeft.x, this.topLeft.y + this.height / 2, this.width / 2);
-
-        // this.geometryMask = new Phaser.Display.Masks.GeometryMask(this.scene, this.maskGraphics);
-        // this.geometryMask.invertAlpha = true;
-        // this.mask = this.geometryMask;
-
-        // this.maskGraphics.fillRect(
-        //     this.topLeft.x, 
-        //     this.topLeft.y, 
-        //     this.width, 
-        //     this.height / 2
-        //     );
-
-        // this.mask = new Phaser.Display.Masks.GeometryMask(this.scene, this.maskGraphics);
+        this.container.add(this);
   
         this.setInteractive();
-
-        // this.scene.add.existing(this);
 
         this.addTimer();
 
