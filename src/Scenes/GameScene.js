@@ -14,7 +14,6 @@ export default class GameScene extends Phaser.Scene {
 
     
         this.testHourglass = new Hourglass(this, 200, 200, 'Hourglass1', 30);
-        
     }
 
     update ()
