@@ -1,35 +1,35 @@
 import 'phaser';
 
-export default class DeathTimer extends Phaser.GameObjects.Sprite {
+export default class Hourglass extends Phaser.GameObjects.Container {
     constructor(scene, x, y, texture, duration) {
-        super(scene, x, y, texture);
+        super(scene, x, y);
         this.scene = scene;
         this.x = x;
         this.y = y;
-        this.texture = texture;
-        this.tweens = this.scene.tweens;
-        this.time = this.scene.time;
-        this.currentTimer = new Phaser.Time.TimerEvent();
         this.isRotating = false;
+
+        this.texture = new Phaser.GameObjects.Image(this.scene, 0, 0, texture);
+        this.setSize(this.texture.width, this.texture.height);
+        this.add(this.texture);
+        
         this.duration = duration * 1000
-        this.topLeft = this.getTopLeft();
+        this.currentTimer = new Phaser.Time.TimerEvent();
         this.timerConfig = {
             delay: this.duration,
             callback: this.finishTimer
         }
-        this.setInteractive();
-
         this.addTimer();
 
-        this.on('pointerdown', this.rotateTimer);
+        this.on('pointerdown', this.rotateContainer);
+        this.setInteractive();
 
         this.scene.add.existing(this);
     }
 
-    rotateTimer () {
+    rotateContainer () {
         if (this.isRotating === false) {
-            this.tweens.add({
-                targets: [this],
+            this.scene.tweens.add({
+                targets: this,
                 angle: '+=180',
                 onComplete: (function () { 
                     this.isRotating = false;
@@ -41,27 +41,27 @@ export default class DeathTimer extends Phaser.GameObjects.Sprite {
     }
 
     addTimer () {
-        this.currentTimer = this.time.addEvent(this.timerConfig);
+        this.currentTimer = this.scene.time.addEvent(this.timerConfig);
         console.log("Timer added");
     }
 
     resetTimer () {
-        // Resetting with .reset() doesn't actually reset it
+        // Resetting with .reset() doesn't actually reset it.
         // If the existing timer completes then it deactivates
-        // And doesn't continue running, even when reset
-        // This is why I create a new timer instead
-        // Also the in-built getRemaining method seems to be missing?s
+        // and doesn't continue running, even when reset.
+        // This is why I create a new timer instead.
+        // Also the in-built getRemaining method seems to be missing?
         let timeElapsed = this.currentTimer.getElapsed();
         let timeRemaining = this.currentTimer.delay - timeElapsed;
 
         this.currentTimer.remove();
         this.currentTimer.elapsed = 0;
-        this.currentTimer = this.time.addEvent({
+        this.currentTimer = this.scene.time.addEvent({
             delay: this.timerConfig.delay,
             callback: this.timerConfig.callback,
             startAt: timeRemaining
         });
-        
+
         console.log("Timer reset");
     }
 
