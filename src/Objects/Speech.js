@@ -1,6 +1,6 @@
 import 'phaser';
 
-export default class Speech extends Phaser.GameObjects.Rectangle {
+export default class Speech extends Phaser.GameObjects.Container {
 
     constructor(scene, x, y, texture) {
         super(scene);
