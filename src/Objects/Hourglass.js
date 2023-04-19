@@ -19,7 +19,6 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             delay: this.duration,
             callback: this.finishTimer
         }
-        this.addTimer();
 
         // Interactivitiy
         // setSize() is necessary for making container clickable
@@ -31,12 +30,17 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         // Also (X, Y) are relative to container.
         this.topSand = new Phaser.GameObjects.Graphics(this.scene);
         this.topSand.fillStyle(0xFFFFFF, 1.0);
-        this.topSand.fillRect(-(this.width / 2), -(this.height / 2), this.width, this.height / 2);
+        this.topSand.fillRect(this.texture.x - (this.width / 2), this.texture.y - (this.height / 2), this.width, this.height / 2);
+
+        // this.bottomSand = new Phaser.GameObjects.Graphics(this.scene);
+        // this.bottomSand.fillStyle(0x000000, 1.0);
+        // this.bottomSand.fillRect(-(this.width / 2), 0, this.width, (this.height / 2));
+        // this.bottomSand.setScale(1, -1);
 
         this.bottomSand = new Phaser.GameObjects.Graphics(this.scene);
         this.bottomSand.fillStyle(0x000000, 1.0);
-        this.bottomSand.fillRect(-(this.width / 2), 0, this.width, (this.height / 2));
-        this.bottomSand.setScale(1, 0);
+        this.bottomSand.fillRect(this.texture.x - (this.width / 2), this.texture.y, this.width, this.height / 2);
+        // this.bottomSand.setScale(1, 0);
         
         // Add to scene
         // Graphics first, then overlay texture.
@@ -66,6 +70,8 @@ export default class Hourglass extends Phaser.GameObjects.Container {
     }
 
     runningTimer () {
+        this.addTimer();
+
         let totalTime = this.duration;
         let timeElapsed = this.currentTimer.getElapsed();
         let timeRemaining = this.currentTimer.delay - timeElapsed;
@@ -73,8 +79,19 @@ export default class Hourglass extends Phaser.GameObjects.Container {
 
         console.log(progressRatio);
 
-        this.topSand.setScale(1, (1 - progressRatio));
-        this.bottomSand.setScale(1, -(progressRatio));
+        this.topTween = this.scene.tweens.add({
+            targets: this.topSand,
+            scaleY: 0,
+            ease: 'Linear',
+            duration: this.duration
+        });
+
+        this.bottomTween = this.scene.tweens.add({
+            targets: this.bottomSand,
+            scaleY: 0,
+            ease: 'Linear',
+            duration: this.duration
+        });
     }
 
     resetTimer () {
