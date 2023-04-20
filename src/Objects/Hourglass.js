@@ -26,26 +26,19 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         this.setSize(this.texture.width, this.texture.height);
         this.setInteractive();
 
-        // Sand graphics
+        // Sand objects
         // Also (X, Y) are relative to container.
-        this.topSand = new Phaser.GameObjects.Graphics(this.scene);
-        this.topSand.fillStyle(0xFFFFFF, 1.0);
-        this.topSand.fillRect(this.texture.x - (this.width / 2), this.texture.y - (this.height / 2), this.width, this.height / 2);
+        this.topSand = new Phaser.GameObjects.Rectangle(
+            this.scene, 
+            this.texture.x, 
+            this.texture.y, 
+            this.texture.width, 
+            this.texture.height - (this.texture.height / 2), 
+            0xFFFFFF);
+        this.topSand.setOrigin(0.5, 1);
 
-        // this.bottomSand = new Phaser.GameObjects.Graphics(this.scene);
-        // this.bottomSand.fillStyle(0x000000, 1.0);
-        // this.bottomSand.fillRect(-(this.width / 2), 0, this.width, (this.height / 2));
-        // this.bottomSand.setScale(1, -1);
-
-        this.bottomSand = new Phaser.GameObjects.Graphics(this.scene);
-        this.bottomSand.fillStyle(0x000000, 1.0);
-        this.bottomSand.fillRect(this.texture.x - (this.width / 2), this.texture.y, this.width, this.height / 2);
-        // this.bottomSand.setScale(1, 0);
-        
-        // Add to scene
-        // Graphics first, then overlay texture.
         this.add(this.topSand);
-        this.add(this.bottomSand);
+        // this.add(this.bottomSand);
         this.add(this.texture);
         this.scene.add.existing(this);
     }
@@ -77,21 +70,15 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         let timeRemaining = this.currentTimer.delay - timeElapsed;
         let progressRatio = (timeElapsed / totalTime).toFixed(2);
 
-        console.log(progressRatio);
-
-        this.topTween = this.scene.tweens.add({
+        this.scene.tweens.add({
             targets: this.topSand,
-            scaleY: 0,
-            ease: 'Linear',
-            duration: this.duration
-        });
-
-        this.bottomTween = this.scene.tweens.add({
-            targets: this.bottomSand,
-            scaleY: 0,
-            ease: 'Linear',
-            duration: this.duration
-        });
+            // height: 0,
+            // y: (this.topSand.height),
+            // flipY: true,
+            height: 0,
+            y: this.topSand.y + this.topSand.height,
+            duration: this.duration / 2
+        })
     }
 
     resetTimer () {
