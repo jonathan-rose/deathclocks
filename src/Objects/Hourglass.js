@@ -22,23 +22,10 @@ export default class Hourglass extends Phaser.GameObjects.Container {
 
         // Interactivitiy
         // setSize() is necessary for making container clickable
-        this.on('pointerdown', this.runningTimer);
+        this.on('pointerdown', this.rotateContainer);
         this.setSize(this.texture.width, this.texture.height);
         this.setInteractive();
 
-        // Sand objects
-        // Also (X, Y) are relative to container.
-        this.topSand = new Phaser.GameObjects.Rectangle(
-            this.scene, 
-            this.texture.x, 
-            this.texture.y, 
-            this.texture.width, 
-            this.texture.height - (this.texture.height / 2), 
-            0xFFFFFF);
-        this.topSand.setOrigin(0.5, 1);
-
-        this.add(this.topSand);
-        // this.add(this.bottomSand);
         this.add(this.texture);
         this.scene.add.existing(this);
     }
@@ -50,7 +37,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
                 angle: '+=180',
                 onComplete: (function () { 
                     this.isRotating = false;
-                    this.resetTimer();
+                    this.swapTimer();
                     }.bind(this)),
                 });
             this.isRotating = true;
@@ -62,26 +49,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         console.log("Timer added");
     }
 
-    runningTimer () {
-        this.addTimer();
-
-        let totalTime = this.duration;
-        let timeElapsed = this.currentTimer.getElapsed();
-        let timeRemaining = this.currentTimer.delay - timeElapsed;
-        let progressRatio = (timeElapsed / totalTime).toFixed(2);
-
-        this.scene.tweens.add({
-            targets: this.topSand,
-            // height: 0,
-            // y: (this.topSand.height),
-            // flipY: true,
-            height: 0,
-            y: this.topSand.y + this.topSand.height,
-            duration: this.duration / 2
-        })
-    }
-
-    resetTimer () {
+    swapTimer () {
         // Resetting with .reset() doesn't actually reset it,
         // as when the existing timer completes then it deactivates
         // itself and doesn't continue running, even after reset().
