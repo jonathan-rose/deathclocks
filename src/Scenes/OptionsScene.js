@@ -1,5 +1,6 @@
 import 'phaser';
 import Button from '../Objects/Button';
+import MenuSand from '../Objects/MenuSand';
 
 export default class OptionsScene extends Phaser.Scene {
     constructor () {
@@ -37,6 +38,8 @@ export default class OptionsScene extends Phaser.Scene {
 
         this.menuButton = new Button(this, 400, 500, 'Button', 'ButtonPressed', 'Menu', 'Title');
         this.updateAudio();
+
+        this.menuSand = new MenuSand(this, config.width * 0.7);
     }
 
     updateAudio() {

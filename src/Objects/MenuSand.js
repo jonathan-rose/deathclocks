@@ -3,11 +3,12 @@ import 'phaser';
 import Util from '../Util';
 
 export default class MenuSand extends Phaser.GameObjects.Container {
-    constructor(scene) {
+    constructor(scene, sandSpawn) {
         super(scene);
         this.scene = scene;
         this.w = this.scene.cameras.main.width;
         this.h = this.scene.cameras.main.height;
+        this.sandSpawn = sandSpawn;
 
         // can specify the resolution of the sand grains
         this.grainSize = 5;
@@ -62,11 +63,18 @@ export default class MenuSand extends Phaser.GameObjects.Container {
      */
     touchesButton(grain) {
         let overlaps =  Phaser.Geom.Rectangle.Overlaps;
-        return Util.any([
-            overlaps(grain.getBounds(), this.scene.gameButton.getBounds()),
-            overlaps(grain.getBounds(), this.scene.optionsButton.getBounds()),
-            overlaps(grain.getBounds(), this.scene.aboutButton.getBounds())
-        ]);
+        if (this.scene.gameButton!==undefined) {
+            return Util.any([
+                overlaps(grain.getBounds(), this.scene.gameButton.getBounds()),
+                overlaps(grain.getBounds(), this.scene.optionsButton.getBounds()),
+                overlaps(grain.getBounds(), this.scene.aboutButton.getBounds())
+            ]);
+        }
+        else {
+            return Util.any([
+                overlaps(grain.getBounds(), this.scene.menuButton.getBounds()),
+            ]);
+        }
     };
 
     /**
@@ -161,9 +169,9 @@ export default class MenuSand extends Phaser.GameObjects.Container {
      */
     addSand() {
         if (Math.random() < 0.5) {
-            let half = Math.floor((this.w / this.grainSize) / 2);
+            let x = Math.floor((this.w / this.grainSize) * (this.sandSpawn / this.w));
             let offset = Math.floor(Math.random() * 3);
-            this.set(half + offset, 0, "SAND");
+            this.set(x + offset, 0, "SAND");
         }
     }
 
