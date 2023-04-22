@@ -11,11 +11,13 @@ export default class TitleScene extends Phaser.Scene {
 	var config = this.game.config;
 
         this.add.image(config.width/2, config.height/2, 'menuBG');
+        this.add.image(config.width/3.5, config.height/4, 'Logo');
+        this.add.image(config.width/9, config.height * 0.85, 'hourglassTilted');
 
         // Play
         this.gameButton = new Button(
             this,
-            config.width * 0.6 + 7,
+            config.width * 0.75 + 7,
             config.height * 0.5 - 100,
             'Button',
             'ButtonPressed',
@@ -26,7 +28,7 @@ export default class TitleScene extends Phaser.Scene {
         // Options
         this.optionsButton = new Button(
             this,
-            config.width * 0.35 - 3,
+            config.width * 0.5 - 3,
             config.height * 0.5 + 50,
             'Button',
             'ButtonPressed',
@@ -37,7 +39,7 @@ export default class TitleScene extends Phaser.Scene {
         // About
         this.aboutButton = new Button(
             this,
-            config.width * 0.6 + 7,
+            config.width * 0.75 + 7,
             config.height * 0.5 + 200,
             'Button',
             'ButtonPressed',
@@ -46,7 +48,7 @@ export default class TitleScene extends Phaser.Scene {
         );
 
         // add falling sand
-        this.menuSand = new MenuSand(this, config.width/2);
+        this.menuSand = new MenuSand(this, config.width * 0.65);
 
         this.model = this.sys.game.globals.model;
 
