@@ -87,6 +87,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('box', 'assets/box.png');
         this.load.image('checkedBox', 'assets/checked1.png');
         this.load.image('Logo', 'assets/logoBigger.png');
+        this.load.image('speechBG', 'assets/speechBackground.png');
 
         // remove progress bar when complete
         this.load.on('complete', function () {

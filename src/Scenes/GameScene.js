@@ -14,21 +14,22 @@ export default class GameScene extends Phaser.Scene {
         //  A simple background for our game
         this.add.image(400, 300, 'background');
 
-        // Add randomly generated speech text to appear/disappear on a timer
-        testSpeech = new Speech(this, 50, 50, '',)
+        //  Add a new instance of the Speech object
+        testSpeech = new Speech(this, 0, 0, 'speechBG')
+        this.add.existing(testSpeech)
 
+        // Update the message in the Speech object
+        // (nested event to allow randomised delay)
         this.time.addEvent({
-            delay: 3000,
+            delay: 8000,
             callback: () => {
-                console.log('callback')
-                if (testSpeech) {
-                    testSpeech.destroy() // TO_DO: figure out why this won't work!
-                    testSpeech = null
-                    console.log('speech destroyed')
-                } else if (!testSpeech) {
-                    testSpeech = new Speech(this, 50, 50, '')
-                    console.log('made new box')
-                }
+                const delay = Phaser.Math.RND.between(1000, 5000)
+                this.time.addEvent({
+                    delay: delay,
+                    callback: () => {
+                        testSpeech.randomiseMessage()
+                    }
+                })
             },
             callbackScope: this,
             loop: true
