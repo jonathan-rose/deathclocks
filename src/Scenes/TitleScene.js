@@ -43,7 +43,7 @@ export default class TitleScene extends Phaser.Scene {
             config.height * 0.5 + 200,
             'Button',
             'ButtonPressed',
-            'About',
+            'Credits',
             'About'
         );
 
