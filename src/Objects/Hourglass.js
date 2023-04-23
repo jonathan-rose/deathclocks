@@ -22,14 +22,12 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         }
 
         // Create sand
-        this.pointA = new Phaser.Math.Vector2(0, 0);
-        this.pointB = new Phaser.Math.Vector2(0, 0 + (this.texture.height / 2));
         this.sandToggle = false;
 
         this.topSand = new Phaser.GameObjects.Rectangle(
             this.scene,
             0,
-            this.pointA.y,
+            0,
             this.texture.width,
             (this.texture.height / 2),
             0xFFCF70
@@ -39,7 +37,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         this.bottomSand = new Phaser.GameObjects.Rectangle(
             this.scene,
             0,
-            this.pointB.y,
+            0 + (this.texture.height / 2),
             this.texture.width,
             (this.texture.height / 2),
             0xFFCF70
@@ -68,7 +66,6 @@ export default class Hourglass extends Phaser.GameObjects.Container {
                 onComplete: (function () { 
                     this.isRotating = false;
                     this.swapTimer();
-                    // this.swapSand();
                     this.resetContainer();
                     }.bind(this)),
                 });
@@ -77,13 +74,13 @@ export default class Hourglass extends Phaser.GameObjects.Container {
     }
 
     resetContainer () {
+        // Instantly resets the orientation of the Hourglass
+        // to give the illusion that sands have rotated too
         this.angle = 0;
     }
 
     addTimer () {
         this.currentTimer = this.scene.time.addEvent(this.timerConfig);
-        // this.animateSand();
-        console.log("Timer added");
     }
 
     swapTimer () {
@@ -102,8 +99,6 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             callback: this.timerConfig.callback,
             startAt: timeRemaining
         });
-
-        console.log("Timer reset");
     }
 
     finishTimer () {
@@ -116,13 +111,5 @@ export default class Hourglass extends Phaser.GameObjects.Container {
 
         this.topSand.setScale(1, -inverseProgressRatio);
         this.bottomSand.setScale(1, progressRatio);
-
-        // if (this.sandToggle === false) {
-        //     this.topSand.setScale(1, -inverseProgressRatio);
-        //     this.bottomSand.setScale(1, progressRatio);
-        // } else if (this.sandToggle === true) {
-        //     this.bottomSand.setScale(1, -inverseProgressRatio);
-        //     this.topSand.setScale(1, progressRatio);
-        // }
     }
 }
