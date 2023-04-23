@@ -32,7 +32,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             this.pointA.y,
             this.texture.width,
             (this.texture.height / 2),
-            0xFFFFFF
+            0xFFCF70
         );
         this.topSand.setOrigin(0.5, 0);
 
@@ -42,7 +42,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             this.pointB.y,
             this.texture.width,
             (this.texture.height / 2),
-            0x000000
+            0xFFCF70
         );
         this.bottomSand.setOrigin(0.5, 1);
 
@@ -68,42 +68,22 @@ export default class Hourglass extends Phaser.GameObjects.Container {
                 onComplete: (function () { 
                     this.isRotating = false;
                     this.swapTimer();
-                    this.swapSand();
+                    // this.swapSand();
+                    this.resetContainer();
                     }.bind(this)),
                 });
             this.isRotating = true;
         }
     }
 
+    resetContainer () {
+        this.angle = 0;
+    }
+
     addTimer () {
         this.currentTimer = this.scene.time.addEvent(this.timerConfig);
         // this.animateSand();
         console.log("Timer added");
-    }
-
-    // animateSand () {
-    //     this.topSandTween = this.scene.tweens.add({
-    //         targets: this.topSand,
-    //         duration: this.duration / 2,
-    //         height: 0          
-    //     })
-
-    //     this.bottomSandTween = this.scene.tweens.add({
-    //         targets: this.bottomSand,
-    //         duration: this.duration / 2,
-    //         height: -(this.texture.height / 2)        
-    //     })
-    // }
-
-    swapSand () {
-        if (this.sandToggle === false) {
-            this.topSand.y = this.pointB.y;
-            this.bottomSand.y = this.pointA.y;
-        } else if (this.sandToggle === true) {
-            this.topSand.y = this.pointA.y;
-            this.bottomSand.y = this.pointB.y;
-        }
-        this.sandToggle = !this.sandToggle;
     }
 
     swapTimer () {
@@ -134,12 +114,15 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         let progressRatio = (this.currentTimer.getElapsed() / this.duration).toFixed(2);
         let inverseProgressRatio = 1 - progressRatio;
 
-        if (this.sandToggle === false) {
-            this.topSand.setScale(1, -inverseProgressRatio);
-            this.bottomSand.setScale(1, progressRatio);
-        } else if (this.sandToggle === true) {
-            this.bottomSand.setScale(1, -inverseProgressRatio);
-            this.topSand.setScale(1, progressRatio);
-        }
+        this.topSand.setScale(1, -inverseProgressRatio);
+        this.bottomSand.setScale(1, progressRatio);
+
+        // if (this.sandToggle === false) {
+        //     this.topSand.setScale(1, -inverseProgressRatio);
+        //     this.bottomSand.setScale(1, progressRatio);
+        // } else if (this.sandToggle === true) {
+        //     this.bottomSand.setScale(1, -inverseProgressRatio);
+        //     this.topSand.setScale(1, progressRatio);
+        // }
     }
 }
