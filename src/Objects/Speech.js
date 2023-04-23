@@ -7,7 +7,7 @@ export default class Speech extends Phaser.GameObjects.Container {
         this.scene = scene;
         this.x = x;
         this.y = y;
-        this.texture = new Phaser.GameObjects.Image(this.scene, 400, 100, texture);
+        this.texture = new Phaser.GameObjects.Image(this.scene, 400, 80, texture);
 
         // speech-box texture starts transparent
         this.texture.setAlpha(0);
@@ -20,7 +20,7 @@ export default class Speech extends Phaser.GameObjects.Container {
             'DEATH: \"TO CHANGE THE FATE OF ONE INDIVIDUAL IS\nTO CHANGE THE WORLD.\"'
         ];
 
-        this.text = new Phaser.GameObjects.Text(this.scene, 45, 60, this.text, { align: 'left', fontSize: '24px', fill: '#000' });
+        this.text = new Phaser.GameObjects.Text(this.scene, 45, 40, this.text, { align: 'left', fontSize: '24px', fill: '#000' });
 
         // add these properties as children of the container
         this.add(this.texture);

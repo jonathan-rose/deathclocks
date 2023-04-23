@@ -7,7 +7,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     preload () {
         // add logo image
-        var logo = this.add.image(400, 120, 'Logo');
+        var logo = this.add.image(400, 120, 'logo');
         logo.setScale(0.45);
 
         // display progress bar
@@ -86,7 +86,15 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('ButtonPressed', 'assets/button1selected.png');
         this.load.image('box', 'assets/box.png');
         this.load.image('checkedBox', 'assets/checked1.png');
-        this.load.image('Logo', 'assets/logoBigger.png');
+        this.load.image('logo', 'assets/logo.png');
+        this.load.image('hourglassTilted', 'assets/hourglassTilted.png');
+
+        this.load.image('gameBackground', 'assets/gameBackground.png');
+        this.load.image('death', 'assets/deathSmall.png');
+        this.load.image('deathEyesClosed', 'assets/deathSmallEyesClosed.png');
+        this.load.image('scythe', 'assets/scythe.png');
+        this.load.image('table', 'assets/table.png');
+        this.load.image('Hourglass1', 'assets/hourglass1.png');
         this.load.image('speechBG', 'assets/speechBackground.png');
 
         // remove progress bar when complete

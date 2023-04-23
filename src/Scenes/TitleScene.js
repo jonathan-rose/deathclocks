@@ -1,30 +1,54 @@
 import 'phaser';
 import Button from '../Objects/Button';
+import MenuSand from '../Objects/MenuSand';
 
 export default class TitleScene extends Phaser.Scene {
-	constructor () {
-		super('Title');
-	}
+    constructor () {
+	super('Title');
+    }
 
-	preload () {
-	}
-
-	create () {
-		var config = this.game.config;
+    create () {
+	var config = this.game.config;
 
         this.add.image(config.width/2, config.height/2, 'menuBG');
+        this.add.image(config.width/3.5, config.height/4, 'logo');
+        this.add.image(config.width/9, config.height * 0.85, 'hourglassTilted');
 
-        this.add.image(config.width*0.3, config.height/2, 'Logo');
-        //this.add.image(config.width*0.2, config.height*0.1, 'LogoTitle');
-
-        // Game - Head to Rocket Select page
-        this.gameButton = new Button(this, config.width*0.75, config.height/2 - 100, 'Button', 'ButtonPressed', 'Play', 'Game');
+        // Play
+        this.gameButton = new Button(
+            this,
+            config.width * 0.75 + 7,
+            config.height * 0.5 - 100,
+            'Button',
+            'ButtonPressed',
+            'Play',
+            'Game'
+        );
 
         // Options
-        this.optionsButton = new Button(this, config.width*0.75, config.height/2, 'Button', 'ButtonPressed', 'Options', 'Options');
+        this.optionsButton = new Button(
+            this,
+            config.width * 0.5 - 3,
+            config.height * 0.5 + 50,
+            'Button',
+            'ButtonPressed',
+            'Options',
+            'Options'
+        );
 
         // About
-        this.aboutButton = new Button(this, config.width*0.75, config.height/2 + 100, 'Button', 'ButtonPressed', 'About', 'About');
+        this.aboutButton = new Button(
+            this,
+            config.width * 0.75 + 7,
+            config.height * 0.5 + 200,
+            'Button',
+            'ButtonPressed',
+            'Credits',
+            'About'
+        );
+
+        // add falling sand
+        this.menuSand = new MenuSand(this, config.width * 0.65);
 
         this.model = this.sys.game.globals.model;
 
