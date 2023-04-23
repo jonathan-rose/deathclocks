@@ -1,4 +1,5 @@
 import 'phaser';
+import { GameObjects } from 'phaser';
 
 export default class Hourglass extends Phaser.GameObjects.Container {
     constructor(scene, x, y, texture, duration) {
@@ -20,13 +21,42 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             callback: this.finishTimer
         }
 
+        // Create sand
+        this.pointA = new Phaser.Math.Vector2(0, 0 - (this.texture.height / 4));
+        this.pointB = new Phaser.Math.Vector2(0, 0 + (this.texture.height / 4));
+        this.sandToggle = false;
+
+        this.topSand = new Phaser.GameObjects.Rectangle(
+            this.scene,
+            0,
+            this.pointA.y,
+            this.texture.width,
+            (this.texture.height / 2),
+            0xFFFFFF
+        );
+        // this.topSand.setOrigin(0.5, 1);
+
+        this.bottomSand = new Phaser.GameObjects.Rectangle(
+            this.scene,
+            0,
+            this.pointB.y,
+            this.texture.width,
+            (this.texture.height / 2),
+            0x000000
+        );
+        // this.bottomSand.setOrigin(0.5, 0);
+
         // Interactivitiy
         // setSize() is necessary for making container clickable
         this.on('pointerdown', this.rotateContainer);
         this.setSize(this.texture.width, this.texture.height);
         this.setInteractive();
 
+        // Add parts to Container
+        this.add(this.topSand);
+        this.add(this.bottomSand);
         this.add(this.texture);
+        this.addTimer();
         this.scene.add.existing(this);
     }
 
@@ -38,6 +68,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
                 onComplete: (function () { 
                     this.isRotating = false;
                     this.swapTimer();
+                    this.swapSand();
                     }.bind(this)),
                 });
             this.isRotating = true;
@@ -46,7 +77,33 @@ export default class Hourglass extends Phaser.GameObjects.Container {
 
     addTimer () {
         this.currentTimer = this.scene.time.addEvent(this.timerConfig);
+        // this.animateSand();
         console.log("Timer added");
+    }
+
+    // animateSand () {
+    //     this.topSandTween = this.scene.tweens.add({
+    //         targets: this.topSand,
+    //         duration: this.duration / 2,
+    //         height: 0          
+    //     })
+
+    //     this.bottomSandTween = this.scene.tweens.add({
+    //         targets: this.bottomSand,
+    //         duration: this.duration / 2,
+    //         height: -(this.texture.height / 2)        
+    //     })
+    // }
+
+    swapSand () {
+        if (this.sandToggle === false) {
+            this.topSand.y = this.pointB.y;
+            this.bottomSand.y = this.pointA.y;
+        } else if (this.sandToggle === true) {
+            this.topSand.y = this.pointA.y;
+            this.bottomSand.y = this.pointB.y;
+        }
+        this.sandToggle = !this.sandToggle;
     }
 
     swapTimer () {
