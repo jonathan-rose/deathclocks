@@ -20,5 +20,6 @@ export default class GameScene extends Phaser.Scene {
     update ()
     {
         console.log(Math.floor(this.testHourglass.currentTimer.getElapsedSeconds()));
+        this.testHourglass.update();
     }
 };

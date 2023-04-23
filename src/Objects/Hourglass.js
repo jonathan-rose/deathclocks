@@ -22,8 +22,8 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         }
 
         // Create sand
-        this.pointA = new Phaser.Math.Vector2(0, 0 - (this.texture.height / 4));
-        this.pointB = new Phaser.Math.Vector2(0, 0 + (this.texture.height / 4));
+        this.pointA = new Phaser.Math.Vector2(0, 0);
+        this.pointB = new Phaser.Math.Vector2(0, 0 + (this.texture.height / 2));
         this.sandToggle = false;
 
         this.topSand = new Phaser.GameObjects.Rectangle(
@@ -34,7 +34,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             (this.texture.height / 2),
             0xFFFFFF
         );
-        // this.topSand.setOrigin(0.5, 1);
+        this.topSand.setOrigin(0.5, 0);
 
         this.bottomSand = new Phaser.GameObjects.Rectangle(
             this.scene,
@@ -44,7 +44,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             (this.texture.height / 2),
             0x000000
         );
-        // this.bottomSand.setOrigin(0.5, 0);
+        this.bottomSand.setOrigin(0.5, 1);
 
         // Interactivitiy
         // setSize() is necessary for making container clickable
@@ -128,5 +128,13 @@ export default class Hourglass extends Phaser.GameObjects.Container {
 
     finishTimer () {
         console.log("Timer finished");
+    }
+
+    update () {
+        let progressRatio = (this.currentTimer.getElapsed() / this.duration).toFixed(2);
+        let inverseProgressRatio = 1 - progressRatio;
+
+        this.topSand.setScale(1, -inverseProgressRatio);
+        this.bottomSand.setScale(1, progressRatio);
     }
 }
