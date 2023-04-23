@@ -18,8 +18,8 @@ export default class GameScene extends Phaser.Scene {
         this.add.image(400, 300, 'table');
 
          //  Add a new instance of the Speech object
-         var testSpeech = new Speech(this, 0, 0, 'speechBG')
-         this.add.existing(testSpeech)
+         var speechBox = new Speech(this, 0, 0, 'speechBG')
+         this.add.existing(speechBox)
  
          // Update the message in the Speech object
          // (nested event to allow randomised delay)
@@ -30,7 +30,7 @@ export default class GameScene extends Phaser.Scene {
                  this.time.addEvent({
                      delay: delay,
                      callback: () => {
-                         testSpeech.randomiseMessage()
+                         speechBox.randomiseMessage()
                      }
                  })
              },
