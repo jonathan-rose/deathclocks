@@ -134,7 +134,12 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         let progressRatio = (this.currentTimer.getElapsed() / this.duration).toFixed(2);
         let inverseProgressRatio = 1 - progressRatio;
 
-        this.topSand.setScale(1, -inverseProgressRatio);
-        this.bottomSand.setScale(1, progressRatio);
+        if (this.sandToggle === false) {
+            this.topSand.setScale(1, -inverseProgressRatio);
+            this.bottomSand.setScale(1, progressRatio);
+        } else if (this.sandToggle === true) {
+            this.bottomSand.setScale(1, -inverseProgressRatio);
+            this.topSand.setScale(1, progressRatio);
+        }
     }
 }
