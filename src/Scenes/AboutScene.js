@@ -15,7 +15,7 @@ export default class AboutScene extends Phaser.Scene {
         this.menuButton = new Button(this, config.width * 0.5, 480, 'Button', 'ButtonPressed', 'Menu', 'Title');
         this.menuSand = new MenuSand(this, config.width * 0.7);
 
-        this.add.text(config.width * 0.5, 100, 'Bought to you by:', { fontSize: 50 , fill: '#ffad0a' }).setOrigin(0.5);
+        this.add.text(config.width * 0.5, 100, 'Brought to you by:', { fontSize: 50 , fill: '#ffad0a' }).setOrigin(0.5);
         this.add.text(config.width * 0.5, 220, ' Jon: everything', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
         this.add.text(config.width * 0.5, 260, ' Mae: everything', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
         this.add.text(config.width * 0.5, 300, 'Beth: everything', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
