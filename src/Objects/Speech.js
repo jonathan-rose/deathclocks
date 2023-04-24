@@ -1,4 +1,5 @@
 import 'phaser';
+import Util from '../Util';
 
 export default class Speech extends Phaser.GameObjects.Container {
 
@@ -28,12 +29,11 @@ export default class Speech extends Phaser.GameObjects.Container {
     } 
 
     randomiseMessage () {
-        if (this.text._text === "") {
-            const index = Phaser.Math.RND.between(0, 4)
-            this.text.text = this.messages[index]
+        if (this.text.text === "") {
+            this.text.text = Util.randNth(this.messages);
             this.texture.setAlpha(1)
         } else {
-            this.text._text = ""
+            this.text.text = ""
             this.texture.setAlpha(0)
         }
     }
