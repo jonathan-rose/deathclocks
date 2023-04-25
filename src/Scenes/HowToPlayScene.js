@@ -38,8 +38,12 @@ export default class HowToPlayScene extends Phaser.Scene {
                 });
         }.bind(this));
 
-        this.testHourglass = new Hourglass(this, 500, 400, 'Hourglass1', 30);
+        this.testHourglass = new Hourglass(this, 500, 400, 'Hourglass1', 10);
 
         this.menuButton = new Button(this, config.width * 0.5, 500, 'Button', 'ButtonPressed', 'Play', 'Game');
+    }
+
+    update() {
+        this.testHourglass.update();
     }
 };

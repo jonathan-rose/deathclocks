@@ -7,11 +7,16 @@ export default class GameScene extends Phaser.Scene {
         super('Game');
     }
 
-
     create ()
     {
-        //GNU Terry Pratchett
+        // ///////////////////////////// //
+        // --== GNU Terry Pratchett ==-- //
+        // ///////////////////////////// //
+
         this.config = this.game.config;
+
+        this.sys.game.globals.startTime = Date.now();
+
         //  A simple background for our game
         this.add.image(400, 300, 'gameBackground');
         var death = this.add.image(160, 200, 'death');
@@ -55,9 +60,8 @@ export default class GameScene extends Phaser.Scene {
                 completeDelay: 100,
                 onComplete: (function () {
                     deathBlink.setVisible(false);
-                    this.scene.start('End');
-                    }.bind(this)),
-                });
+                }.bind(this)),
+            });
         }.bind(this));
     }
 
@@ -112,6 +116,8 @@ export default class GameScene extends Phaser.Scene {
             this.finalMusic();
         }
         if (remaining <= 0) {
+            this.defaultMusic();
+            this.sys.game.globals.endTime = Date.now();
             this.scene.start('End');
         }
     }
@@ -134,6 +140,7 @@ export default class GameScene extends Phaser.Scene {
     finalMusic() {
         this.sys.game.globals.musicTracks[0].volume = 0.5;
         this.sys.game.globals.musicTracks[1].volume = 0.5;
-        this.sys.game.globals.musicTracks[2].volume = 0.5;
+        // last minute decision to remove the alarm beeping, it's just too much
+        this.sys.game.globals.musicTracks[2].volume = 0;
     }
 }
