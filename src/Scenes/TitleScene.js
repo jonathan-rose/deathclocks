@@ -4,13 +4,13 @@ import MenuSand from '../Objects/MenuSand';
 
 export default class TitleScene extends Phaser.Scene {
     constructor () {
-	super('Title');
+	   super('Title');
     }
 
     create () {
 	var config = this.game.config;
 
-        this.add.image(config.width/2, config.height/2, 'menuBG');
+        this.add.image(config.width/2, config.height/2, 'titleBG'); //menuBG
         this.add.image(config.width/3.5, config.height/4, 'logo');
         this.add.image(config.width/9, config.height * 0.85, 'hourglassTilted');
 

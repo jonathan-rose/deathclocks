@@ -79,17 +79,15 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.audio('track2', ['assets/audio/track2.mp3']);
         this.load.audio('track3', ['assets/audio/track3.mp3']);
 
-        this.load.image('background', 'assets/background.png');
-
-        this.load.image('menuBG', 'assets/background.png');
-        this.load.image('aboutBG', 'assets/background.png');
-
+        this.load.image('titleBG', 'assets/titleBG.png');
+        this.load.image('logo', 'assets/logo.png');
         this.load.image('Button', 'assets/button1.png');
         this.load.image('ButtonPressed', 'assets/button1selected.png');
+        this.load.image('hourglassTilted', 'assets/hourglassTilted.png');
+        
+        this.load.image('aboutBG', 'assets/background.png');
         this.load.image('box', 'assets/box.png');
         this.load.image('checkedBox', 'assets/checked1.png');
-        this.load.image('logo', 'assets/logo.png');
-        this.load.image('hourglassTilted', 'assets/hourglassTilted.png');
 
         this.load.image('gameBackground', 'assets/gameBackground.png');
         this.load.image('death', 'assets/deathSmall.png');
@@ -97,7 +95,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('scythe', 'assets/scythe.png');
         this.load.image('table', 'assets/table.png');
         this.load.image('Hourglass1', 'assets/hourglass1.png');
-        this.load.image('speechBG', 'assets/speechBackground.png');
+        //this.load.image('speechBG', 'assets/speechBackground.png');
+        this.load.image('speechBG', 'assets/speechBG.png');
 
         // remove progress bar when complete
         this.load.on('complete', function () {
