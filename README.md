@@ -49,6 +49,5 @@ This is an issue with Phaser that even affects the official template, reported l
 ## Build
 
 ``` bash
-npm run build
-zip -r deathclocks dist/*
+npm run build && zip -r deathclocks dist/* && cp -r assets/ dist/
 ```
