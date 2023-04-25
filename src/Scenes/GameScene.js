@@ -10,9 +10,9 @@ export default class GameScene extends Phaser.Scene {
 
     create ()
     {
-        //  A simple background for our game
+        //GNU Terry Pratchett
+        
         this.add.image(400, 300, 'gameBackground');
-
         var death = this.add.image(160, 200, 'death');
         var deathBlink = this.add.image(160, 200, 'deathEyesClosed');
         this.add.image(350, 220, 'scythe');
