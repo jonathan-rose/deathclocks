@@ -7,17 +7,20 @@ export default class AboutScene extends Phaser.Scene {
         super('About');
     }
 
-
     create () {
         var config = this.game.config;
         this.model = this.sys.game.globals.model;
         this.add.image(config.width/2, config.height/2, 'aboutBG');
 
-        this.add.text(config.width*0.1, config.height*0.11, 'About Page \n\nSpace to write about your game \nor a how to play. \n', { align: 'center', fontSize: '25px', fill: '#000' });
-        this.menuButton = new Button(this, 400, 480, 'Button', 'ButtonPressed', 'Menu', 'Title');
-
+        this.menuButton = new Button(this, config.width * 0.5, 480, 'Button', 'ButtonPressed', 'Menu', 'Title');
         this.menuSand = new MenuSand(this, config.width * 0.7);
 
-    }
+        this.add.text(config.width * 0.5, 100, 'Brought to you by:', { fontSize: 50 , fill: '#ffad0a' }).setOrigin(0.5);
+        this.add.text(config.width * 0.3, 205, ' Jon: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 245, ' Mae: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 285, 'Beth: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 325, 'Dave: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 365, '  PJ: music', { fontSize: 24 , fill: '#ffad0a'});
 
+    }
 };

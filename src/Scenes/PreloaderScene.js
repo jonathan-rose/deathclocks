@@ -7,7 +7,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     preload () {
         // add logo image
-        var logo = this.add.image(400, 120, 'Logo');
+        var logo = this.add.image(400, 120, 'logo');
         logo.setScale(0.45);
 
         // display progress bar
@@ -74,8 +74,10 @@ export default class PreloaderScene extends Phaser.Scene {
         });
 
         // load assets needed in our game
-        
-        this.load.audio('bgMusic', ['assets/Komiku_-_07_-_Run_against_the_universe.mp3']);
+
+        this.load.audio('track1', ['assets/audio/track1.mp3']);
+        this.load.audio('track2', ['assets/audio/track2.mp3']);
+        this.load.audio('track3', ['assets/audio/track3.mp3']);
 
         this.load.image('background', 'assets/background.png');
 
@@ -86,12 +88,18 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('ButtonPressed', 'assets/button1selected.png');
         this.load.image('box', 'assets/box.png');
         this.load.image('checkedBox', 'assets/checked1.png');
-        this.load.image('Logo', 'assets/logo.png');
+        this.load.image('logo', 'assets/logo.png');
         this.load.image('hourglassTilted', 'assets/hourglassTilted.png');
 
-        this.load.image('Death', 'assets/DeathSmall.png');
+        this.load.image('gameBackground', 'assets/gameBackground.png');
+        this.load.image('death', 'assets/deathSmall.png');
+        this.load.image('deathEyesClosed', 'assets/deathSmallEyesClosed.png');
+        this.load.image('scythe', 'assets/scythe.png');
+        this.load.image('table', 'assets/table.png');
         this.load.image('Hourglass1', 'assets/hourglass1.png');
+
         this.load.image('Hourglass1-mask', 'assets/hourglass1-mask.png');
+        this.load.image('speechBG', 'assets/speechBackground.png');
 
         // remove progress bar when complete
         this.load.on('complete', function () {
