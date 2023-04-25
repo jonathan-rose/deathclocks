@@ -10,8 +10,8 @@ export default class GameScene extends Phaser.Scene {
 
     create ()
     {
-        //  A simple background for our game
- 
+        //GNU Terry Pratchett
+
         this.testHourglass = new Hourglass(this, 100, 100, 'Hourglass1', 10);
         
         this.add.image(400, 300, 'gameBackground');
