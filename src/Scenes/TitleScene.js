@@ -22,7 +22,7 @@ export default class TitleScene extends Phaser.Scene {
             'Button',
             'ButtonPressed',
             'Play',
-            'Game'
+            'HowToPlay'
         );
 
         // Options
