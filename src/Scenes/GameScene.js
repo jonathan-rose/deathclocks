@@ -71,9 +71,9 @@ export default class GameScene extends Phaser.Scene {
             this.config.width * (0.15 + (Math.random() * 0.7)),
             this.config.height * (0.55 + (Math.random() * 0.3)),
             'Hourglass1',
-            (8 + (Math.random() * 15))
+            (10 + (Math.random() * 15))
         );
-        h.text = this.add.text(h.x - 20, h.y - 85, h.duration/1000, { align: 'left', fontSize: '36px', wordWrap: { width: 420, useAdvancedWrap: true }, fill: '#000' })
+        h.text = this.add.text(h.x - 20, h.y - 85, h.duration/1000, { align: 'left', fontSize: '36px', wordWrap: { width: 420, useAdvancedWrap: true }, fill: '#000' });
         this.hourglasses.push(h);
     }
 
@@ -97,26 +97,25 @@ export default class GameScene extends Phaser.Scene {
         this.hourglasses.forEach((h) => {
             let updatedText = h.currentTimer.getOverallRemainingSeconds();
             if (updatedText < 6) {
-                h.text.style.color = '#710C04'
+                h.text.style.color = '#710C04';
             } else {
-                h.text.style.color = '#000000'
+                h.text.style.color = '#000000';
             }
-            h.text.text = Math.floor(updatedText)
-    });
+            h.text.text = Math.floor(updatedText);
+        });
 
         // Figure out what kind of music we should be playing.
-        let remaining = this.leastTimeLeft();
-        if (remaining >= 10) {
+        this.remaining = this.leastTimeLeft();
+        if (this.remaining >= 10) {
             this.defaultMusic();
         }
-        if (remaining < 10) {
+        if (this.remaining < 10) {
             this.fasterMusic();
         }
-        if (remaining < 5) {
+        if (this.remaining < 5) {
             this.finalMusic();
         }
-        if (remaining <= 0) {
-            this.defaultMusic();
+        if (this.remaining <= 0) {
             this.sys.game.globals.endTime = Date.now();
             this.scene.start('End');
         }
