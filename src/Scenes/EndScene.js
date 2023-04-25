@@ -29,12 +29,14 @@ export default class EndScene extends Phaser.Scene {
                 });
         }.bind(this));
 
+        console.log((this.sys.game.globals.endTime - this.sys.game.globals.startTime) / 1000);
+
         this.menuButton = new Button(this, config.width * 0.5, 480, 'Button', 'ButtonPressed', 'Menu', 'Title');
         this.menuSand = new MenuSand(this, config.width * 0.7);
 
         this.add.text(config.width * 0.5, 100, 'You Died.', { fontSize: 50 , fill: '#ffad0a' }).setOrigin(0.5);
-        this.add.text(config.width * 0.3, 205, ' Life extended by: ', { fontSize: 24 , fill: '#ffad0a'});
-        this.add.text(config.width * 0.3, 245, ' INSERT TOTAL TIME HERE', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.5, 225, ' Life extended by: ', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
+        this.add.text(config.width * 0.5, 265, ((this.sys.game.globals.endTime - this.sys.game.globals.startTime) / 1000) + " seconds", { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
 
     }
 };
