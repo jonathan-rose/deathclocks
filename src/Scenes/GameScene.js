@@ -94,6 +94,8 @@ export default class GameScene extends Phaser.Scene {
             let updatedText = h.currentTimer.getOverallRemainingSeconds();
             if (updatedText < 6) {
                 h.text.style.color = '#710C04'
+            } else {
+                h.text.style.color = '#000000'
             }
             h.text.text = Math.floor(updatedText)
     });
