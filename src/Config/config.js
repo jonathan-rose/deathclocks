@@ -1,7 +1,7 @@
 import 'phaser';
 
 export default {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
     width: 800,
     height: 600,
     physics: {
