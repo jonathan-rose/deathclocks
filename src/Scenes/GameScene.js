@@ -51,6 +51,7 @@ export default class GameScene extends Phaser.Scene {
                 completeDelay: 100,
                 onComplete: (function () {
                     deathBlink.setVisible(false);
+                    this.scene.start('End');
                     }.bind(this)),
                 });
         }.bind(this));
@@ -83,6 +84,9 @@ export default class GameScene extends Phaser.Scene {
         }
         if (remaining < 5) {
             this.finalMusic();
+        }
+        if (remaining <= 0) {
+            this.scene.start('End');
         }
     }
 
