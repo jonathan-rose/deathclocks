@@ -1,4 +1,5 @@
 import 'phaser';
+import { GameObjects } from 'phaser';
 
 export default class Hourglass extends Phaser.GameObjects.Container {
     constructor(scene, x, y, texture, duration) {
@@ -11,6 +12,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         // Texture setup
         // X and Y are relative to container, hence (0,0).
         this.texture = new Phaser.GameObjects.Image(this.scene, 0, 0, texture);
+        this.hourglassMask = new Phaser.GameObjects.Image(this.scene, 0, 0, 'Hourglass1-mask');
         
         // Timer setup
         this.duration = duration * 1000
@@ -20,13 +22,48 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             callback: this.finishTimer
         }
 
+        // Create sand
+        this.sandToggle = false;
+
+        this.topSand = new Phaser.GameObjects.Rectangle(
+            this.scene,
+            0,
+            0,
+            this.texture.width,
+            (this.texture.height / 2),
+            0xFFCF70
+        );
+        this.topSand.setOrigin(0.5, 0);
+
+        this.bottomSand = new Phaser.GameObjects.Rectangle(
+            this.scene,
+            0,
+            0 + (this.texture.height / 2),
+            this.texture.width,
+            (this.texture.height / 2),
+            0xFFCF70
+        );
+        this.bottomSand.setOrigin(0.5, 1);
+
+        // Mask setup
+        // This DOES work in some broken way
+        // As it makes everything disappear rather than just some regions
+        // And you can add the hourglassMask image to the scene and it does appear
+        // this.overlayGraphics = new Phaser.GameObjects.Graphics(this.scene);
+        // this.overlay = this.overlayGraphics.createBitmapMask(this.hourglassMask);
+        // this.setMask(this.overlay);
+
         // Interactivitiy
         // setSize() is necessary for making container clickable
         this.on('pointerdown', this.rotateContainer);
         this.setSize(this.texture.width, this.texture.height);
         this.setInteractive();
 
+        // Add parts to Container
+        this.add(this.topSand);
+        this.add(this.bottomSand);
         this.add(this.texture);
+        this.addTimer();
         this.scene.add.existing(this);
     }
 
@@ -38,15 +75,21 @@ export default class Hourglass extends Phaser.GameObjects.Container {
                 onComplete: (function () { 
                     this.isRotating = false;
                     this.swapTimer();
+                    this.resetContainer();
                     }.bind(this)),
                 });
             this.isRotating = true;
         }
     }
 
+    resetContainer () {
+        // Instantly resets the orientation of the Hourglass
+        // to give the illusion that sands have rotated too
+        this.angle = 0;
+    }
+
     addTimer () {
         this.currentTimer = this.scene.time.addEvent(this.timerConfig);
-        console.log("Timer added");
     }
 
     swapTimer () {
@@ -65,11 +108,17 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             callback: this.timerConfig.callback,
             startAt: timeRemaining
         });
-
-        console.log("Timer reset");
     }
 
     finishTimer () {
         console.log("Timer finished");
+    }
+
+    update () {
+        let progressRatio = (this.currentTimer.getElapsed() / this.duration).toFixed(2);
+        let inverseProgressRatio = 1 - progressRatio;
+
+        this.topSand.setScale(1, -inverseProgressRatio);
+        this.bottomSand.setScale(1, progressRatio);
     }
 }
