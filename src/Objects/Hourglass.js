@@ -49,9 +49,9 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         // This DOES work in some broken way
         // As it makes everything disappear rather than just some regions
         // And you can add the hourglassMask image to the scene and it does appear
-        this.overlayGraphics = new Phaser.GameObjects.Graphics(this.scene);
-        this.overlay = this.overlayGraphics.createBitmapMask(this.hourglassMask);
-        this.setMask(this.overlay);
+        // this.overlayGraphics = new Phaser.GameObjects.Graphics(this.scene);
+        // this.overlay = this.overlayGraphics.createBitmapMask(this.hourglassMask);
+        // this.setMask(this.overlay);
 
         // Interactivitiy
         // setSize() is necessary for making container clickable
