@@ -97,6 +97,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('scythe', 'assets/scythe.png');
         this.load.image('table', 'assets/table.png');
         this.load.image('Hourglass1', 'assets/hourglass1.png');
+
+        this.load.image('Hourglass1-mask', 'assets/hourglass1-mask.png');
         this.load.image('speechBG', 'assets/speechBackground.png');
 
         // remove progress bar when complete

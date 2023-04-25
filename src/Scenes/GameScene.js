@@ -11,6 +11,9 @@ export default class GameScene extends Phaser.Scene {
     create ()
     {
         //  A simple background for our game
+ 
+        this.testHourglass = new Hourglass(this, 100, 100, 'Hourglass1', 10);
+        
         this.add.image(400, 300, 'gameBackground');
         var death = this.add.image(160, 200, 'death');
         var deathBlink = this.add.image(160, 200, 'deathEyesClosed');
@@ -69,6 +72,7 @@ export default class GameScene extends Phaser.Scene {
     update ()
     {
         console.log(Math.floor(this.testHourglass.currentTimer.getElapsedSeconds()));
+        this.testHourglass.update();
 
         // Figure out what kind of music we should be playing.
         let remaining = this.leastTimeLeft();
