@@ -11,14 +11,14 @@ export default class GameScene extends Phaser.Scene {
     create ()
     {
         //  A simple background for our game
- 
-        this.testHourglass = new Hourglass(this, 100, 100, 'Hourglass1', 10);
-        
         this.add.image(400, 300, 'gameBackground');
+
         var death = this.add.image(160, 200, 'death');
         var deathBlink = this.add.image(160, 200, 'deathEyesClosed');
         this.add.image(350, 220, 'scythe');
         this.add.image(400, 300, 'table');
+
+        this.hourglasses = [new Hourglass(this, 100, 100, 'Hourglass1', 20)];
 
          //  Add a new instance of the Speech object
          var speechBox = new Speech(this, 0, 0, 'speechBG')
@@ -54,25 +54,24 @@ export default class GameScene extends Phaser.Scene {
                     }.bind(this)),
                 });
         }.bind(this));
-
-        this.testHourglass = new Hourglass(this, 400, 450, 'Hourglass1', 30);
     }
 
     /**
      * Returns the number of seconds remaining on the hourglass with
      * the least time left.
      */
-    // @TODO: implement
     leastTimeLeft() {
-        // slow music for now
-        return 11;
+        return this.hourglasses.map((h) => {
+            return h.currentTimer.getOverallRemainingSeconds();
+        }).reduce((a, b) => {
+            return Math.min(a, b);
+        }, 99999);
     }
 
 
     update ()
     {
-        console.log(Math.floor(this.testHourglass.currentTimer.getElapsedSeconds()));
-        this.testHourglass.update();
+        this.hourglasses.forEach((h) => {h.update();});
 
         // Figure out what kind of music we should be playing.
         let remaining = this.leastTimeLeft();
