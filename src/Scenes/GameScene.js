@@ -18,7 +18,7 @@ export default class GameScene extends Phaser.Scene {
         this.add.image(350, 220, 'scythe');
         this.add.image(400, 300, 'table');
 
-        this.hourglasses = [new Hourglass(this, 100, 100, 'Hourglass1', 20)];
+        this.hourglasses = [new Hourglass(this, 100, 100, 'Hourglass1', 50)];
 
          //  Add a new instance of the Speech object
          var speechBox = new Speech(this, 0, 0, 'speechBG')

@@ -45,9 +45,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         this.bottomSand.setOrigin(0.5, 1);
 
         // Mask setup
-        this.mask = this.scene.add.bitmapMask(null, x, y, 'Hourglass1-mask');
-        this.mask.invertAlpha = true;
-        this.setMask(this.mask);
+        this.addHourglassMask();
 
         // Interactivitiy
         // setSize() is necessary for making container clickable
@@ -63,19 +61,32 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         this.scene.add.existing(this);
     }
 
+    hideSand () {
+        this.topSand.setVisible(false);
+        this.bottomSand.setVisible(false);
+    }
+
+    showSand () {
+        this.topSand.setVisible(true);
+        this.bottomSand.setVisible(true);
+    }
+
     rotateContainer () {
+        this.hideSand();
         if (this.isRotating === false) {
             this.scene.tweens.add({
-                targets: this,
+                targets: [this],
                 angle: '+=180',
                 onComplete: (function () {
                     this.isRotating = false;
                     this.swapTimer();
                     this.resetContainer();
+                    this.showSand();
                     }.bind(this)),
                 });
             this.isRotating = true;
         }
+
     }
 
     resetContainer () {
@@ -86,6 +97,15 @@ export default class Hourglass extends Phaser.GameObjects.Container {
 
     addTimer () {
         this.currentTimer = this.scene.time.addEvent(this.timerConfig);
+    }
+
+    addHourglassMask () {
+        // I didn't call the bitmapmask variable this.mask because
+        // it gets confused with the object property
+        this.bitmapMask = this.scene.add.bitmapMask(null, this.x, this.y, 'Hourglass1-mask');
+        this.bitmapMask.invertAlpha = true;
+        this.topSand.setMask(this.bitmapMask);
+        this.bottomSand.setMask(this.bitmapMask);
     }
 
     swapTimer () {
