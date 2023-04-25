@@ -52,16 +52,18 @@ export default class TitleScene extends Phaser.Scene {
 
         this.model = this.sys.game.globals.model;
 
-        if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
-            this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
-            this.bgMusic.play();
-            this.model.bgMusicPlaying = true;
-            this.sys.game.globals.bgMusic = this.bgMusic;
-        } else if (this.model.musicOn === false && this.model.bgMusicPlaying === false) {
-            this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
-            this.bgMusic.stop();
-            this.model.bgMusicPlaying = false;
-            this.sys.game.globals.bgMusic = this.bgMusic;
+        this.music1 = this.sound.add('track1', { volume: 0.5, loop: true });
+        this.music2 = this.sound.add('track2', { volume: 0, loop: true });
+        this.music3 = this.sound.add('track3', { volume: 0, loop: true });
+
+        this.sys.game.globals.musicTracks = [this.music1, this.music2, this.music3];
+        if (this.model.musicOn === true && this.model.musicPlaying === false) {
+            this.music1.play();
+            this.music2.play();
+            this.music3.play();
+            this.model.musicPlaying = true;
+        } else if (this.model.musicOn === false && this.model.musicPlaying === false) {
+            this.sys.game.globals.musicTracks.forEach((m) => {m.volume = 0;});
         }
     }
 };

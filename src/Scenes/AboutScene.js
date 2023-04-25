@@ -16,10 +16,11 @@ export default class AboutScene extends Phaser.Scene {
         this.menuSand = new MenuSand(this, config.width * 0.7);
 
         this.add.text(config.width * 0.5, 100, 'Brought to you by:', { fontSize: 50 , fill: '#ffad0a' }).setOrigin(0.5);
-        this.add.text(config.width * 0.5, 220, ' Jon: everything', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
-        this.add.text(config.width * 0.5, 260, ' Mae: everything', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
-        this.add.text(config.width * 0.5, 300, 'Beth: everything', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
-        this.add.text(config.width * 0.5, 340, 'Dave: everything', { fontSize: 24 , fill: '#ffad0a'}).setOrigin(0.5);
+        this.add.text(config.width * 0.3, 205, ' Jon: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 245, ' Mae: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 285, 'Beth: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 325, 'Dave: everything but music', { fontSize: 24 , fill: '#ffad0a'});
+        this.add.text(config.width * 0.3, 365, '  PJ: music', { fontSize: 24 , fill: '#ffad0a'});
 
     }
 };
