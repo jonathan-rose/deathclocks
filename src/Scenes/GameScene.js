@@ -11,14 +11,15 @@ export default class GameScene extends Phaser.Scene {
     create ()
     {
         //GNU Terry Pratchett
-        
+        this.config = this.game.config;
+        //  A simple background for our game
         this.add.image(400, 300, 'gameBackground');
         var death = this.add.image(160, 200, 'death');
         var deathBlink = this.add.image(160, 200, 'deathEyesClosed');
         this.add.image(350, 220, 'scythe');
         this.add.image(400, 300, 'table');
 
-        this.hourglasses = [new Hourglass(this, 100, 100, 'Hourglass1', 50)];
+        this.hourglasses = [new Hourglass(this, this.config.width * 0.5, this.config.height * 0.55, 'Hourglass1', 20)];
 
          //  Add a new instance of the Speech object
          var speechBox = new Speech(this, 0, 0, 'speechBG')
@@ -55,6 +56,17 @@ export default class GameScene extends Phaser.Scene {
                     }.bind(this)),
                 });
         }.bind(this));
+    }
+
+    addNewHourglass() {
+        let h = new Hourglass(
+            this,
+            this.config.width * (0.15 + (Math.random() * 0.7)),
+            this.config.height * (0.55 + (Math.random() * 0.3)),
+            'Hourglass1',
+            (8 + (Math.random() * 15))
+        );
+        this.hourglasses.push(h);
     }
 
     /**
