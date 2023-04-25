@@ -20,6 +20,9 @@ export default class GameScene extends Phaser.Scene {
         this.add.image(400, 300, 'table');
 
         this.hourglasses = [new Hourglass(this, this.config.width * 0.5, this.config.height * 0.55, 'Hourglass1', 20)];
+        this.hourglasses.forEach((h) => {
+                h.text = this.add.text(h.x - 20, h.y - 85, h.duration/1000, { align: 'left', fontSize: '36px', wordWrap: { width: 420, useAdvancedWrap: true }, fill: '#000' })
+            });
 
          //  Add a new instance of the Speech object
          var speechBox = new Speech(this, 0, 0, 'speechBG')
@@ -66,6 +69,7 @@ export default class GameScene extends Phaser.Scene {
             'Hourglass1',
             (8 + (Math.random() * 15))
         );
+        h.text = this.add.text(h.x - 20, h.y - 85, h.duration/1000, { align: 'left', fontSize: '36px', wordWrap: { width: 420, useAdvancedWrap: true }, fill: '#000' })
         this.hourglasses.push(h);
     }
 
@@ -85,6 +89,14 @@ export default class GameScene extends Phaser.Scene {
     update ()
     {
         this.hourglasses.forEach((h) => {h.update();});
+
+        this.hourglasses.forEach((h) => {
+            let updatedText = h.currentTimer.getOverallRemainingSeconds();
+            if (updatedText < 6) {
+                h.text.style.color = '#710C04'
+            }
+            h.text.text = Math.floor(updatedText)
+    });
 
         // Figure out what kind of music we should be playing.
         let remaining = this.leastTimeLeft();
