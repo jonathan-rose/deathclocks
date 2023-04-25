@@ -12,8 +12,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         // Texture setup
         // X and Y are relative to container, hence (0,0).
         this.texture = new Phaser.GameObjects.Image(this.scene, 0, 0, texture);
-        this.hourglassMask = new Phaser.GameObjects.Image(this.scene, 0, 0, 'Hourglass1-mask');
-        
+
         // Timer setup
         this.duration = duration * 1000
         this.currentTimer = new Phaser.Time.TimerEvent();
@@ -46,12 +45,9 @@ export default class Hourglass extends Phaser.GameObjects.Container {
         this.bottomSand.setOrigin(0.5, 1);
 
         // Mask setup
-        // This DOES work in some broken way
-        // As it makes everything disappear rather than just some regions
-        // And you can add the hourglassMask image to the scene and it does appear
-        // this.overlayGraphics = new Phaser.GameObjects.Graphics(this.scene);
-        // this.overlay = this.overlayGraphics.createBitmapMask(this.hourglassMask);
-        // this.setMask(this.overlay);
+        this.mask = this.scene.add.bitmapMask(null, x, y, 'Hourglass1-mask');
+        this.mask.invertAlpha = true;
+        this.setMask(this.mask);
 
         // Interactivitiy
         // setSize() is necessary for making container clickable
@@ -72,7 +68,7 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             this.scene.tweens.add({
                 targets: this,
                 angle: '+=180',
-                onComplete: (function () { 
+                onComplete: (function () {
                     this.isRotating = false;
                     this.swapTimer();
                     this.resetContainer();
