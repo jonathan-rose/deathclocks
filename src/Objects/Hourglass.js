@@ -87,6 +87,9 @@ export default class Hourglass extends Phaser.GameObjects.Container {
             this.isRotating = true;
         }
 
+        if (this.scene.hourglasses.length == 1 || Math.random() < 0.33) {
+            this.scene.addNewHourglass();
+        }
     }
 
     resetContainer () {

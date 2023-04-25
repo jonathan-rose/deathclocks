@@ -28,7 +28,7 @@ This is due to trying to use SLL in Node.js v17 or later. See this thread on SO:
 
 [Error message "error:0308010C:digital envelope routines::unsupported"](https://stackoverflow.com/questions/69692842/error-message-error0308010cdigital-envelope-routinesunsupported)
 
-To fix it downgrade to Node 16.20. Node version manager makes this easy. 
+To fix it downgrade to Node 16.20. Node version manager makes this easy.
 
 Install nvm (Mac and Linux) or nvm-windows (Windows):
 
@@ -45,3 +45,10 @@ Then from a terminal:
 This is an issue with Phaser that even affects the official template, reported last December:
 
 [Unable to build project on Node version 18 and above](https://github.com/photonstorm/phaser3-project-template/issues/100)
+
+## Build
+
+``` bash
+npm run build
+zip -r deathclocks dist/*
+```
