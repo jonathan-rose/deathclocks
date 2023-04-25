@@ -74,8 +74,10 @@ export default class PreloaderScene extends Phaser.Scene {
         });
 
         // load assets needed in our game
-        
-        this.load.audio('bgMusic', ['assets/Komiku_-_07_-_Run_against_the_universe.mp3']);
+
+        this.load.audio('track1', ['assets/audio/track1.mp3']);
+        this.load.audio('track2', ['assets/audio/track2.mp3']);
+        this.load.audio('track3', ['assets/audio/track3.mp3']);
 
         this.load.image('background', 'assets/background.png');
 
